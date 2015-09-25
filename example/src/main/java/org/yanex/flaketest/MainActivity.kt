@@ -16,7 +16,7 @@ public abstract class FlakeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val flakeContext = FlakeContext.create(savedInstanceState)
+        val flakeContext = FlakeContext.create(this, savedInstanceState)
 
         flakeContext.messageListener = { messageReceived(it) }
         this.internalFlakeContext = flakeContext

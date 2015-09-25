@@ -1,5 +1,6 @@
 package org.yanex.flake.internal
 
+import android.app.Activity
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.SparseArray
@@ -10,7 +11,7 @@ import org.yanex.flake.FlakeManager
 import java.lang.ref.WeakReference
 import java.util.*
 
-internal class FlakeContextImpl(savedInstanceState: Bundle?) : FlakeContext() {
+internal class FlakeContextImpl(private val activity: Activity, savedInstanceState: Bundle?) : FlakeContext() {
     override var messageListener: ((Any) -> Unit)? = null
 
     private val managers = arrayListOf<WeakReference<FlakeManagerImpl>>() // Must not be private
@@ -55,21 +56,31 @@ internal class FlakeContextImpl(savedInstanceState: Bundle?) : FlakeContext() {
                 ?: throw IllegalArgumentException("No instance was found for ${type.canonicalName}")
     }
 
-    override fun <T : Flake<*>> sendMessage(flakeClass: Class<T>, message: Any): Boolean {
-        val found = findFlake(this) { flakeClass.isInstance(it) } ?: return false
-        return doSendMessage(found.first, found.second, message)
+    override fun <T : Flake<*>> sendMessage(flakeClass: Class<T>, message: Any) {
+        activity.runOnUiThread {
+            val found = findFlake(this) { flakeClass.isInstance(it) } ?: return@runOnUiThread
+            doSendMessage(found.first, found.second, message)
+        }
     }
 
-    override fun sendMessageToContext(message: Any): Boolean {
-        val listener = messageListener ?: return false
-        listener(message)
-        return true
+    override fun sendMessage(flake: Flake<*>, message: Any) {
+        activity.runOnUiThread {
+            val found = findFlake(this) { flake == it } ?: return@runOnUiThread
+            doSendMessage(found.first, found.second, message)
+        }
+    }
+
+    override fun sendMessageToContext(message: Any) {
+        val listener = messageListener ?: return
+        activity.runOnUiThread { listener(message) }
     }
 
     override fun sendBroadcastMessage(message: Any) {
-        for (manager in getAllManagers(this)) {
-            val state = manager.internalGetActiveFlakeState ?: continue
-            doSendMessage(manager, state, message)
+        activity.runOnUiThread {
+            for (manager in getAllManagers(this)) {
+                val state = manager.internalGetActiveFlakeState ?: continue
+                doSendMessage(manager, state, message)
+            }
         }
     }
 
