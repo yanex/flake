@@ -21,7 +21,7 @@ A *flake* is a simple class that extends `Flake`. It is quite similar to the `Fr
 `SimpleFlake` inflates the `R.layout.flake_simple` layout and sets a listener to the `button`.
 
 ```kotlin
-public class SimpleFlake : XmlFlake<SimpleFlake.Holder>() {
+class SimpleFlake : XmlFlake<SimpleFlake.Holder>() {
     override val layoutResource = R.layout.flake_simple
     override fun createHolder(root: View) = Holder(root)
 
@@ -29,8 +29,8 @@ public class SimpleFlake : XmlFlake<SimpleFlake.Holder>() {
         h.button.setOnClickListener { /* some code! */ }
     }
     
-    private class Holder(root: View) : IdHolder(root) {
-        public val button: Button by id(R.id.button)
+    class Holder(root: View) : IdHolder(root) {
+        val button: Button by id(R.id.button)
     }
 }
 ```

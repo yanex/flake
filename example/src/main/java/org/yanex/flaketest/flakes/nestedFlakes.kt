@@ -9,7 +9,7 @@ import org.yanex.flake.XmlFlake
 import org.yanex.flake.internal.MyAdapter
 import org.yanex.flaketest.R
 
-public class NestedFlake : XmlFlake<NestedFlake.Holder>() {
+class NestedFlake : XmlFlake<NestedFlake.Holder>() {
     override val layoutResource: Int = R.layout.flake_nested
     override fun createHolder(root: View) = Holder(root)
 
@@ -20,13 +20,13 @@ public class NestedFlake : XmlFlake<NestedFlake.Holder>() {
         manager2.restoreStateOrShow { RightFlake() }
     }
 
-    private class Holder(root: View) : IdHolder(root) {
+    class Holder(root: View) : IdHolder(root) {
         val first: FlakeLayout by id(R.id.first)
         val second: FlakeLayout by id(R.id.second)
     }
 }
 
-public abstract class LeftRightFlake : XmlFlake<LeftRightFlake.Holder>() {
+abstract class LeftRightFlake : XmlFlake<LeftRightFlake.Holder>() {
     private val items = (1..10).mapTo(arrayListOf<String>()) { "Item $it" }
 
     override val layoutResource = R.layout.flake_list_simple
@@ -35,22 +35,22 @@ public abstract class LeftRightFlake : XmlFlake<LeftRightFlake.Holder>() {
     override fun setup(h: Holder, manager: FlakeManager) {
         h.list.adapter = h.adapter
         h.list.setOnItemClickListener { adapterView, view, pos, l ->
-            items.remove(pos)
+            items.removeAt(pos)
             h.adapter.notifyDataSetChanged()
             sendMessageToOtherFlake(manager, pos)
         }
     }
 
-    public abstract fun sendMessageToOtherFlake(manager: FlakeManager, pos: Int)
+    abstract fun sendMessageToOtherFlake(manager: FlakeManager, pos: Int)
 
     override fun messageReceived(h: Holder, manager: FlakeManager, message: Any) {
         if (message is RemoveListItem) {
-            items.remove(message.pos)
+            items.removeAt(message.pos)
             h.adapter.notifyDataSetChanged()
         }
     }
 
-    private class Holder(root: View, items: List<String>) : IdHolder(root) {
+    class Holder(root: View, items: List<String>) : IdHolder(root) {
         val list: ListView by id(R.id.list)
         val adapter = MyAdapter(root.context, android.R.layout.simple_list_item_1, items)
     }
@@ -58,13 +58,13 @@ public abstract class LeftRightFlake : XmlFlake<LeftRightFlake.Holder>() {
 
 class RemoveListItem(val pos: Int)
 
-public class LeftFlake: LeftRightFlake() {
+class LeftFlake: LeftRightFlake() {
     override fun sendMessageToOtherFlake(manager: FlakeManager, pos: Int) {
         manager.flakeContext.sendMessage<RightFlake>(RemoveListItem(pos))
     }
 }
 
-public class RightFlake: LeftRightFlake() {
+class RightFlake: LeftRightFlake() {
     override fun sendMessageToOtherFlake(manager: FlakeManager, pos: Int) {
         manager.flakeContext.sendMessage<LeftFlake>(RemoveListItem(pos))
     }

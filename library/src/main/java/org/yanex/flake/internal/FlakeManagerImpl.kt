@@ -17,7 +17,7 @@ internal class FlakeManagerImpl(
     override val flakeContext: FlakeContext
         get() = flakeContextImpl
 
-    public override val activity: Activity = flakeLayout.context as? Activity
+    override val activity: Activity = flakeLayout.context as? Activity
             ?: throw RuntimeException("FlakeLayout context must be instance of be an Activity")
 
     protected override val stack: MutableList<FlakeState> = arrayListOf()
@@ -139,7 +139,7 @@ internal class FlakeManagerImpl(
         val current = this.current
         val previous = this.previous
 
-        val allFlakes = ArrayList<Flake<*>>(s.size() + previous.oneIfNotNull() + current.oneIfNotNull())
+        val allFlakes = ArrayList<Flake<*>>(s.size + previous.oneIfNotNull() + current.oneIfNotNull())
         s.forEachByIndex { allFlakes.add(it.flake) }
         previous?.let { allFlakes.add(it.flake) }
         current?.let { allFlakes.add(it.flake) }

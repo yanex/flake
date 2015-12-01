@@ -6,7 +6,7 @@ import android.view.animation.TranslateAnimation
 import org.yanex.flake.AnimatedFlake
 import org.yanex.flake.FlakeManager
 
-public interface MyFlakeAnimation: AnimatedFlake {
+interface MyFlakeAnimation: AnimatedFlake {
     private companion object {
         val DELAY = 300L
     }

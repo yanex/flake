@@ -9,13 +9,13 @@ import org.yanex.flake.XmlFlake
 import org.yanex.flake.internal.MyAdapter
 import org.yanex.flaketest.R
 
-public class Person(val familyName: String, val firstName: String, val age: Int? = null) {
+class Person(val familyName: String, val firstName: String, val age: Int? = null) {
     override fun toString() = "$firstName $familyName" + (if (age != null) " ($age)" else "")
 }
 
-public object ClearListMessage
+object ClearListMessage
 
-public class ListFlake : XmlFlake<ListFlake.Holder>(), MyFlakeAnimation {
+class ListFlake : XmlFlake<ListFlake.Holder>(), MyFlakeAnimation {
     private val items = arrayListOf(Person("Smith", "John", 30))
 
     override val layoutResource = R.layout.flake_list
@@ -35,7 +35,7 @@ public class ListFlake : XmlFlake<ListFlake.Holder>(), MyFlakeAnimation {
         }
     }
 
-    private class Holder(root: View, items: List<Person>): IdHolder(root) {
+    class Holder(root: View, items: List<Person>): IdHolder(root) {
         val list: ListView by id(R.id.list)
         val add: Button by id(R.id.add)
         val clearList: Button by id(R.id.clearList)

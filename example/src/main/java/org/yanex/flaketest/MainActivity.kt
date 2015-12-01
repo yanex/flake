@@ -8,7 +8,7 @@ import org.yanex.flake.FlakeLayout
 import org.yanex.flake.FlakeManager
 import org.yanex.flaketest.flakes.ListFlake
 
-public abstract class FlakeActivity : AppCompatActivity() {
+abstract class FlakeActivity : AppCompatActivity() {
     private var internalFlakeContext: FlakeContext? = null
 
     protected val flakeContext: FlakeContext
@@ -22,7 +22,7 @@ public abstract class FlakeActivity : AppCompatActivity() {
         this.internalFlakeContext = flakeContext
     }
 
-    public open fun messageReceived(message: Any) {}
+    open fun messageReceived(message: Any) {}
 
     override fun onConfigurationChanged(newConfig: Configuration?) {
         super.onConfigurationChanged(newConfig)
@@ -35,7 +35,7 @@ public abstract class FlakeActivity : AppCompatActivity() {
     }
 }
 
-public class MainActivity : FlakeActivity() {
+class MainActivity : FlakeActivity() {
 
     private val topLevelFlakeManager by lazy {
         val flakeLayout = findViewById(R.id.flakeLayout) as FlakeLayout

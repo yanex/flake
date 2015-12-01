@@ -8,7 +8,7 @@ import org.yanex.flake.IdHolder
 import org.yanex.flake.XmlFlake
 import org.yanex.flaketest.R
 
-public abstract class AbstractNewPersonFlake : XmlFlake<AbstractNewPersonFlake.Holder>(), MyFlakeAnimation {
+abstract class AbstractNewPersonFlake : XmlFlake<AbstractNewPersonFlake.Holder>(), MyFlakeAnimation {
     override fun createHolder(root: View) = Holder(root)
 
     override fun setup(h: Holder, manager: FlakeManager) {
@@ -24,7 +24,7 @@ public abstract class AbstractNewPersonFlake : XmlFlake<AbstractNewPersonFlake.H
         }
     }
 
-    protected class Holder(root: View): IdHolder(root) {
+    class Holder(root: View): IdHolder(root) {
         val familyName: EditText by id(R.id.familyName)
         val firstName: EditText by id(R.id.firstName)
         val age: EditText? by opt(R.id.age)
@@ -45,11 +45,11 @@ public abstract class AbstractNewPersonFlake : XmlFlake<AbstractNewPersonFlake.H
     }
 }
 
-public class SimpleNewPersonFlake : AbstractNewPersonFlake() {
+class SimpleNewPersonFlake : AbstractNewPersonFlake() {
     override val layoutResource = R.layout.flake_new_person
 }
 
-public class DetailedNewPersonFlake(
+class DetailedNewPersonFlake(
         private val firstName: String,
         private val familyName: String
 ) : AbstractNewPersonFlake() {

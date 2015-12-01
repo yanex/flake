@@ -10,7 +10,7 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.FrameLayout
 import org.yanex.flake.internal.FlakeManagerImpl
 
-public class FlakeLayout : FrameLayout {
+class FlakeLayout : FrameLayout {
     internal var manager: FlakeManagerImpl? = null
     internal var animationRunning = false
     private var previouslyDetached = false

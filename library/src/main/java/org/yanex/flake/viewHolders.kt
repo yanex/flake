@@ -3,10 +3,11 @@ package org.yanex.flake
 import android.content.res.Resources
 import android.view.View
 import kotlin.properties.ReadOnlyProperty
+import kotlin.reflect.KProperty
 
-public abstract class FlakeHolder(public val root: View)
+abstract class FlakeHolder(val root: View)
 
-public open class IdHolder(root: View) : FlakeHolder(root) {
+open class IdHolder(root: View) : FlakeHolder(root) {
 
     @Suppress("UNCHECKED_CAST")
     protected fun <V : View> id(id: Int): ReadOnlyProperty<IdHolder, V> = Lazy { property ->
@@ -30,11 +31,11 @@ public open class IdHolder(root: View) : FlakeHolder(root) {
         throw IllegalArgumentException("View with id = $textId ($id) was not found inside $root")
     }
 
-    private class Lazy<T, V>(val initializer : (PropertyMetadata) -> V) : ReadOnlyProperty<T, V> {
+    private class Lazy<T, V>(val initializer : (KProperty<*>) -> V) : ReadOnlyProperty<T, V> {
         private object UNINITIALIZED
         private var value: Any? = UNINITIALIZED
 
-        override fun get(thisRef: T, property: PropertyMetadata): V {
+        override fun getValue(thisRef: T, property: KProperty<*>): V {
             if (value == UNINITIALIZED) {
                 value = initializer(property)
             }

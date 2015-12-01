@@ -27,7 +27,7 @@ public class ClearListFlake extends XmlFlake<ClearListFlake.Holder> {
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                manager.goBack(v.getId() == R.id.ok ? ClearListMessage.INSTANCE$ : null);
+                manager.goBack(v.getId() == R.id.ok ? ClearListMessage.INSTANCE : null);
             }
         };
 

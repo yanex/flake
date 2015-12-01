@@ -22,14 +22,14 @@ abstract class FlakeManager internal constructor() {
             if (stack.isNotEmpty() || previous != null) {
                 throw IllegalStateException("FlakeManager has not-empty stack")
             }
-            $retainPreviousFlake = v
+            field = v
         }
 
     val hasFlakes: Boolean
         get() = current != null
 
     val stackSize: Int
-        get() = stack.size() + (if (retainPreviousFlake && previous != null) 1 else 0)
+        get() = stack.size + (if (retainPreviousFlake && previous != null) 1 else 0)
 
     val canGoBack: Boolean
         get() = previous != null || stack.isNotEmpty()
@@ -60,9 +60,9 @@ abstract class FlakeManager internal constructor() {
     protected abstract var current: RetainedState?
     protected abstract var previous: RetainedState?
 
-    public companion object {
+    companion object {
         @JvmStatic
-        public fun create(flakeLayout: FlakeLayout, flakeContext: FlakeContext): FlakeManager {
+        fun create(flakeLayout: FlakeLayout, flakeContext: FlakeContext): FlakeManager {
             return FlakeManagerImpl(flakeLayout, flakeContext)
         }
     }

@@ -29,7 +29,7 @@ internal class FlakeContextImpl(private val activity: Activity, savedInstanceSta
     override fun saveInstanceState(outState: Bundle?) {
         if (outState == null) return
         val managers = getAllManagers(this)
-        val sa = SparseArray<List<Flake<*>>>(managers.size())
+        val sa = SparseArray<List<Flake<*>>>(managers.size)
         managers.forEachByIndex { manager ->
             sa.put(manager.flakeLayout.id, manager.saveState())
         }
@@ -137,13 +137,13 @@ internal class FlakeContextImpl(private val activity: Activity, savedInstanceSta
     private object Cache {
         private val cache = hashMapOf<String, SparseArray<List<Flake<*>>>>()
 
-        public fun put(m: SparseArray<List<Flake<*>>>): String {
+        fun put(m: SparseArray<List<Flake<*>>>): String {
             val id = "FlakeContext." + UUID.randomUUID()
             cache.put(id, m)
             return id
         }
 
-        public fun get(id: String): SparseArray<List<Flake<*>>>? {
+        fun get(id: String): SparseArray<List<Flake<*>>>? {
             return cache.remove(id)
         }
     }
