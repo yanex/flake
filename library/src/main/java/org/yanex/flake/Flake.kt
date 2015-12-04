@@ -18,7 +18,7 @@ interface AnimatedFlake {
 
 abstract class Flake<T: FlakeHolder> {
     protected abstract fun createView(manager: FlakeManager): View
-    protected abstract fun createHolder(root: View): T
+    protected abstract fun createHolder(manager: FlakeManager, root: View): T
 
     open fun setup(h: T, manager: FlakeManager) {}
     open fun update(h: T, manager: FlakeManager, result: Any?) {}
@@ -38,7 +38,7 @@ abstract class Flake<T: FlakeHolder> {
 
     internal fun init(manager: FlakeManager): T {
         val view = createView(manager)
-        val holder = createHolder(view)
+        val holder = createHolder(manager, view)
         setup(holder, manager)
         return holder
     }

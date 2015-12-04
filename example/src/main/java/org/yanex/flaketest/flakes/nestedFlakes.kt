@@ -11,7 +11,7 @@ import org.yanex.flaketest.R
 
 class NestedFlake : XmlFlake<NestedFlake.Holder>() {
     override val layoutResource: Int = R.layout.flake_nested
-    override fun createHolder(root: View) = Holder(root)
+    override fun createHolder(manager: FlakeManager, root: View) = Holder(root)
 
     override fun setup(h: Holder, manager: FlakeManager) {
         val manager1 = FlakeManager.create(h.first, manager.flakeContext)
@@ -30,7 +30,7 @@ abstract class LeftRightFlake : XmlFlake<LeftRightFlake.Holder>() {
     private val items = (1..10).mapTo(arrayListOf<String>()) { "Item $it" }
 
     override val layoutResource = R.layout.flake_list_simple
-    override fun createHolder(root: View) = Holder(root, items)
+    override fun createHolder(manager: FlakeManager, root: View) = Holder(root, items)
 
     override fun setup(h: Holder, manager: FlakeManager) {
         h.list.adapter = h.adapter

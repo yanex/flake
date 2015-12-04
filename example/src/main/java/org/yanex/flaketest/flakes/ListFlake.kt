@@ -19,7 +19,7 @@ class ListFlake : XmlFlake<ListFlake.Holder>(), MyFlakeAnimation {
     private val items = arrayListOf(Person("Smith", "John", 30))
 
     override val layoutResource = R.layout.flake_list
-    override fun createHolder(root: View) = Holder(root, items)
+    override fun createHolder(manager: FlakeManager, root: View) = Holder(root, items)
 
     override fun setup(h: Holder, manager: FlakeManager) {
         h.list.adapter = h.adapter

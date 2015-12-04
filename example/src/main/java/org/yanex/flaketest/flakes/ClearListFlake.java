@@ -18,7 +18,7 @@ public class ClearListFlake extends XmlFlake<ClearListFlake.Holder> {
 
     @NotNull
     @Override
-    protected Holder createHolder(@NotNull View root) {
+    protected Holder createHolder(@NotNull FlakeManager manager, @NotNull View root) {
         return new Holder(root);
     }
 

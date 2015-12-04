@@ -9,7 +9,7 @@ import org.yanex.flake.XmlFlake
 import org.yanex.flaketest.R
 
 abstract class AbstractNewPersonFlake : XmlFlake<AbstractNewPersonFlake.Holder>(), MyFlakeAnimation {
-    override fun createHolder(root: View) = Holder(root)
+    override fun createHolder(manager: FlakeManager, root: View) = Holder(root)
 
     override fun setup(h: Holder, manager: FlakeManager) {
         h.ok.setOnClickListener {
