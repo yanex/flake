@@ -21,9 +21,15 @@ abstract class FlakeContext internal constructor() {
         useComponent(T::class.java, instance)
     }
 
-    abstract fun <T: Any> getComponent(type: Class<T>): T
+    abstract fun <T: Any> getComponentOrNull(type: Class<T>): T?
+
+    inline fun <reified T: Any> getComponentOrNull(): T? {
+        return getComponentOrNull(T::class.java)
+    }
+
     inline fun <reified T: Any> getComponent(): T {
-        return getComponent(T::class.java)
+        return getComponentOrNull(T::class.java) ?:
+                throw IllegalArgumentException("No instance was found for ${T::class.java.canonicalName}")
     }
 
     inline fun <reified T : Flake<*>> sendMessage(message: Any) {

@@ -50,10 +50,9 @@ internal class FlakeContextImpl(private val activity: Activity, savedInstanceSta
         components[type] = instance
     }
 
-    override fun <T : Any> getComponent(type: Class<T>): T {
+    override fun <T : Any> getComponentOrNull(type: Class<T>): T? {
         @Suppress("UNCHECKED_CAST")
         return components[type] as? T
-                ?: throw IllegalArgumentException("No instance was found for ${type.canonicalName}")
     }
 
     override fun <T : Flake<*>> sendMessage(flakeClass: Class<T>, message: Any) {
