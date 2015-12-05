@@ -1,0 +1,7 @@
+<manifest package="org.yanex.flake.test" xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+        <activity android:name="org.yanex.flake.FlakeActivity"/>
+    </application>
+
+</manifest>
