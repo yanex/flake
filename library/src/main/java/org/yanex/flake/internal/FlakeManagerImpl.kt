@@ -20,11 +20,11 @@ internal class FlakeManagerImpl(
     override val activity: Activity = flakeLayout.context as? Activity
             ?: throw RuntimeException("FlakeLayout context must be instance of be an Activity")
 
-    protected override val stack: MutableList<FlakeState> = arrayListOf()
-    protected override var current: RetainedState? = null
-    protected override var previous: RetainedState? = null
+    override val stack: MutableList<FlakeState> = arrayListOf()
+    override var current: RetainedState? = null
+    override var previous: RetainedState? = null
 
-    private val taskQueue = linkedListOf<StackedTask>()
+    private val taskQueue = LinkedList<StackedTask>()
     private var flakeStackLock = false
     private var currentAnimation: Animation? = null
 
@@ -172,7 +172,7 @@ internal class FlakeManagerImpl(
     internal fun onLayoutBecameReattachedToWindow() = restoreState(stack)
 
     private fun restoreState(state: List<FlakeState>) {
-        val newStack = state.toArrayList()
+        val newStack = state.toMutableList()
         val newCurrent = newStack.removeLast()?.ensureRetained()
         val newUnderCurrent = if (retainPreviousFlake) newStack.removeLast()?.ensureRetained() else null
 
