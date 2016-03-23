@@ -46,6 +46,7 @@ abstract class FlakeManager internal constructor() {
         if (!restoreState()) show(factory())
     }
 
+    /* goBack is asynchronous so it returns Unit */
     fun goBack(): Unit = goBack(null)
 
     abstract fun <T : FlakeHolder> show(flake: Flake<T>)
