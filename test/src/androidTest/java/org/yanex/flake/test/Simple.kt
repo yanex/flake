@@ -22,8 +22,10 @@ class SimpleFlake : Flake<SimpleFlake.Holder>() {
         val TEXT = "test"
     }
 
-    override fun createView(manager: FlakeManager) = TextView(manager.activity).apply { id = ID }
-    override fun createHolder(manager: FlakeManager, root: View) = Holder(root)
+    override fun createHolder(manager: FlakeManager): Holder {
+        val view = TextView(manager.activity)
+        return Holder(view.apply { id = ID })
+    }
 
     override fun setup(h: Holder, manager: FlakeManager) {
         h.textView.text = TEXT
