@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.Button;
 
 import org.jetbrains.annotations.NotNull;
+import org.yanex.flake.AbstractFlakeHolder;
 import org.yanex.flake.FlakeHolder;
 import org.yanex.flake.FlakeManager;
 import org.yanex.flake.XmlFlake;
@@ -35,7 +36,7 @@ public class ClearListFlake extends XmlFlake<ClearListFlake.Holder> {
         h.cancel.setOnClickListener(listener);
     }
 
-    class Holder extends FlakeHolder {
+    class Holder extends AbstractFlakeHolder {
         public final Button ok;
         public final Button cancel;
 

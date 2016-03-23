@@ -5,9 +5,13 @@ import android.view.View
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
-abstract class FlakeHolder(val root: View)
+interface FlakeHolder {
+    val root: View
+}
 
-open class IdHolder(root: View) : FlakeHolder(root) {
+abstract class AbstractFlakeHolder(override val root: View) : FlakeHolder
+
+open class IdHolder(root: View) : AbstractFlakeHolder(root) {
 
     @Suppress("UNCHECKED_CAST")
     protected fun <V : View> id(id: Int): ReadOnlyProperty<IdHolder, V> = Lazy { property ->

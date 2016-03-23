@@ -31,7 +31,7 @@ class SimpleFlake : Flake<SimpleFlake.Holder>() {
         h.textView.text = TEXT
     }
 
-    class Holder(root: View) : FlakeHolder(root) {
+    class Holder(root: View) : AbstractFlakeHolder(root) {
         val textView = root as TextView
     }
 }
