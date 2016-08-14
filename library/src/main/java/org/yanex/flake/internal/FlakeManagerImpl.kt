@@ -55,7 +55,7 @@ internal class FlakeManagerImpl(
         }
 
         if (stacked != null) {
-            stacked.flake.onDetach()
+            stacked.flake.onDetach(this)
             stack.add(stacked.cachedFlakeState())
         }
 
@@ -117,10 +117,10 @@ internal class FlakeManagerImpl(
 
         stack.clear()
 
-        previous?.let { it.flake.onDetach() }
+        previous?.let { it.flake.onDetach(this) }
         previous = null
 
-        current?.let { it.flake.onDetach() }
+        current?.let { it.flake.onDetach(this) }
         current = null
 
         flakeLayout.removeAllViews()
@@ -157,11 +157,11 @@ internal class FlakeManagerImpl(
         } else {
             val s = stack
             this.current?.cachedFlakeState()?.let {
-                it.flake.onDetach()
+                it.flake.onDetach(this)
                 s.add(it)
             }
             this.previous?.cachedFlakeState()?.let {
-                it.flake.onDetach()
+                it.flake.onDetach(this)
                 s.add(it)
             }
             current = null

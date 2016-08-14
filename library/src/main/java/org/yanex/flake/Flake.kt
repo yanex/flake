@@ -25,7 +25,7 @@ abstract class Flake<T: FlakeHolder> {
     open fun messageReceived(h: T, manager: FlakeManager, message: Any) {}
 
     open fun onAttach(manager: FlakeManager) {}
-    open fun onDetach() {}
+    open fun onDetach(manager: FlakeManager) {}
 
     open fun onConfigurationChanged(h: T, manager: FlakeManager, newConfig: Configuration) {}
 
