@@ -16,8 +16,8 @@ abstract class FlakeContext internal constructor() {
     abstract fun sendMessageToContext(message: Any)
     abstract fun sendBroadcastMessage(message: Any)
 
-    abstract fun <T: Any> useComponent(type: Class<T>, instance: T)
-    inline fun <reified T : Any> useComponent(instance: T) {
+    abstract fun <T: Any> useComponent(type: Class<T>, instance: T?)
+    inline fun <reified T : Any> useComponent(instance: T?) {
         useComponent(T::class.java, instance)
     }
 

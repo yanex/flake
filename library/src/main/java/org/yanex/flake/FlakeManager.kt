@@ -66,5 +66,10 @@ abstract class FlakeManager internal constructor() {
         fun create(flakeLayout: FlakeLayout, flakeContext: FlakeContext): FlakeManager {
             return FlakeManagerImpl(flakeLayout, flakeContext)
         }
+
+        @JvmStatic
+        fun create(flakeLayout: FlakeLayout, flakeManager: FlakeManager): FlakeManager {
+            return FlakeManagerImpl(flakeLayout, flakeManager.flakeContext)
+        }
     }
 }

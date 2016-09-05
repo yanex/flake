@@ -17,7 +17,7 @@ internal class FlakeContextImpl(private val activity: Activity, savedInstanceSta
     private val managers = arrayListOf<WeakReference<FlakeManagerImpl>>() // Must not be private
     private var restoredState: SparseArray<List<Flake<*>>>? = null
 
-    private val components = hashMapOf<Class<*>, Any>()
+    private val components = hashMapOf<Class<*>, Any?>()
 
     init {
         val cacheKey = savedInstanceState?.getString(BUNDLE_KEY)
@@ -46,7 +46,7 @@ internal class FlakeContextImpl(private val activity: Activity, savedInstanceSta
         }
     }
 
-    override fun <T : Any> useComponent(type: Class<T>, instance: T) {
+    override fun <T : Any> useComponent(type: Class<T>, instance: T?) {
         components[type] = instance
     }
 
