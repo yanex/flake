@@ -5,29 +5,31 @@ import android.view.View
 import android.view.animation.Animation
 
 interface AnimatedFlake {
-    open fun getAnimationOnShow(manager: FlakeManager): Animation? = null
-    open fun getAnimationOnShowForPrevious(manager: FlakeManager): Animation? = null
+    fun getAnimationOnShow(manager: FlakeManager): Animation? = null
+    fun getAnimationOnShowForPrevious(manager: FlakeManager): Animation? = null
 
-    open fun getAnimationOnHide(manager: FlakeManager): Animation? = null
-    open fun getAnimationOnHideForPrevious(manager: FlakeManager): Animation? = null
+    fun getAnimationOnHide(manager: FlakeManager): Animation? = null
+    fun getAnimationOnHideForPrevious(manager: FlakeManager): Animation? = null
 
     //TODO
-    open fun getAnimationOnReplace(manager: FlakeManager): Animation? = null
-    open fun getAnimationOnReplaceForPrevious(manager: FlakeManager): Animation? = null
+    fun getAnimationOnReplace(manager: FlakeManager): Animation? = null
+    fun getAnimationOnReplaceForPrevious(manager: FlakeManager): Animation? = null
 }
 
-abstract class Flake<T: FlakeHolder> {
+interface FlakeBase<T : FlakeHolder> {
+    fun setup(h: T, manager: FlakeManager) {}
+    fun update(h: T, manager: FlakeManager, result: Any?) {}
+
+    fun messageReceived(h: T, manager: FlakeManager, message: Any) {}
+
+    fun onAttach(manager: FlakeManager) {}
+    fun onDetach(manager: FlakeManager) {}
+
+    fun onConfigurationChanged(h: T, manager: FlakeManager, newConfig: Configuration) {}
+}
+
+abstract class Flake<T: FlakeHolder> : FlakeBase<T> {
     protected abstract fun createHolder(manager: FlakeManager): T
-
-    open fun setup(h: T, manager: FlakeManager) {}
-    open fun update(h: T, manager: FlakeManager, result: Any?) {}
-
-    open fun messageReceived(h: T, manager: FlakeManager, message: Any) {}
-
-    open fun onAttach(manager: FlakeManager) {}
-    open fun onDetach(manager: FlakeManager) {}
-
-    open fun onConfigurationChanged(h: T, manager: FlakeManager, newConfig: Configuration) {}
 
     open fun onBackPressed(manager: FlakeManager): Boolean {
         if (!manager.canGoBack) return false
