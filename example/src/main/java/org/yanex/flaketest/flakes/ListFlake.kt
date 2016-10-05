@@ -21,7 +21,7 @@ class ListFlake : XmlFlake<ListFlake.Holder>(), MyFlakeAnimation {
     override val layoutResource = R.layout.flake_list
     override fun createHolder(manager: FlakeManager, root: View) = Holder(root, items)
 
-    override fun setup(h: Holder, manager: FlakeManager) {
+    override fun init(h: Holder, manager: FlakeManager) {
         h.list.adapter = h.adapter
         h.nested.setOnClickListener { manager.show(NestedFlake()) }
         h.add.setOnClickListener { manager.show(SimpleNewPersonFlake()) }

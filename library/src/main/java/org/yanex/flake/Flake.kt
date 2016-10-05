@@ -17,7 +17,19 @@ interface AnimatedFlake {
 }
 
 interface FlakeBase<T : FlakeHolder> {
+    /**
+     * [init] is called each time the flake holder is created.
+     */
+    fun init(h: T, manager: FlakeManager) {}
+
+    /**
+     * [setup] is called each time before the flake become shown.
+     */
     fun setup(h: T, manager: FlakeManager) {}
+
+    /**
+     * [update] is called instead of [init] if the holder is already created for this flake.
+     */
     fun update(h: T, manager: FlakeManager, result: Any?) {}
 
     fun messageReceived(h: T, manager: FlakeManager, message: Any) {}
@@ -39,6 +51,7 @@ abstract class Flake<T: FlakeHolder> : FlakeBase<T> {
 
     internal fun init(manager: FlakeManager): T {
         val holder = createHolder(manager)
+        init(holder, manager)
         setup(holder, manager)
         return holder
     }

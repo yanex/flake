@@ -24,7 +24,7 @@ public class ClearListFlake extends XmlFlake<ClearListFlake.Holder> {
     }
 
     @Override
-    public void setup(@NotNull Holder h, @NotNull final FlakeManager manager) {
+    public void init(@NotNull Holder h, @NotNull final FlakeManager manager) {
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {

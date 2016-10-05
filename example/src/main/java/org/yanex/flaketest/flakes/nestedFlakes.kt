@@ -13,7 +13,7 @@ class NestedFlake : XmlFlake<NestedFlake.Holder>() {
     override val layoutResource: Int = R.layout.flake_nested
     override fun createHolder(manager: FlakeManager, root: View) = Holder(root)
 
-    override fun setup(h: Holder, manager: FlakeManager) {
+    override fun init(h: Holder, manager: FlakeManager) {
         val manager1 = FlakeManager.create(h.first, manager.flakeContext)
         val manager2 = FlakeManager.create(h.second, manager.flakeContext)
         manager1.restoreStateOrShow { LeftFlake() }
@@ -32,7 +32,7 @@ abstract class LeftRightFlake : XmlFlake<LeftRightFlake.Holder>() {
     override val layoutResource = R.layout.flake_list_simple
     override fun createHolder(manager: FlakeManager, root: View) = Holder(root, items)
 
-    override fun setup(h: Holder, manager: FlakeManager) {
+    override fun init(h: Holder, manager: FlakeManager) {
         h.list.adapter = h.adapter
         h.list.setOnItemClickListener { adapterView, view, pos, l ->
             items.removeAt(pos)

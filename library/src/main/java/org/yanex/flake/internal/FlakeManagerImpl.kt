@@ -99,6 +99,7 @@ internal class FlakeManagerImpl(
         if (newCurrent != null) {
             @Suppress("UNCHECKED_CAST")
             val flake = newCurrent.flake as Flake<FlakeHolder>
+            flake.setup(newCurrent.holder, this)
             flake.update(newCurrent.holder, this, result)
         }
 

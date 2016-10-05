@@ -11,7 +11,7 @@ import org.yanex.flaketest.R
 abstract class AbstractNewPersonFlake : XmlFlake<AbstractNewPersonFlake.Holder>(), MyFlakeAnimation {
     override fun createHolder(manager: FlakeManager, root: View) = Holder(root)
 
-    override fun setup(h: Holder, manager: FlakeManager) {
+    override fun init(h: Holder, manager: FlakeManager) {
         h.ok.setOnClickListener {
             manager.goBack(Person(h.familyNameString, h.firstNameString, h.ageInt))
         }
@@ -55,8 +55,8 @@ class DetailedNewPersonFlake(
 ) : AbstractNewPersonFlake() {
     override val layoutResource = R.layout.flake_new_person_detailed
 
-    override fun setup(h: AbstractNewPersonFlake.Holder, manager: FlakeManager) {
-        super.setup(h, manager)
+    override fun init(h: AbstractNewPersonFlake.Holder, manager: FlakeManager) {
+        super.init(h, manager)
         h.familyName.setText(familyName)
         h.firstName.setText(firstName)
     }
