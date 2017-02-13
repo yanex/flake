@@ -11,7 +11,7 @@ import org.yanex.flake.FlakeManager
 import java.lang.ref.WeakReference
 import java.util.*
 
-internal class FlakeContextImpl(private val activity: Activity, savedInstanceState: Bundle?) : FlakeContext() {
+internal class FlakeContextImpl(override val activity: Activity, savedInstanceState: Bundle?) : FlakeContext() {
     override var messageListener: ((Any) -> Unit)? = null
 
     private val managers = arrayListOf<WeakReference<FlakeManagerImpl>>() // Must not be private

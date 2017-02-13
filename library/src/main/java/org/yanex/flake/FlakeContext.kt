@@ -6,6 +6,8 @@ import android.os.Bundle
 import org.yanex.flake.internal.FlakeContextImpl
 
 abstract class FlakeContext internal constructor() {
+    abstract val activity: Activity
+
     abstract var messageListener: ((Any) -> Unit)?
 
     abstract fun saveInstanceState(outState: Bundle?)
